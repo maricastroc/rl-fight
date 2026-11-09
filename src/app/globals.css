@@ -1,26 +1,185 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-ink-950: #0a0a0b;
+  --color-ink-900: #0f0f11;
+  --color-ink-850: #141416;
+  --color-ink-800: #19191c;
+  --color-ink-750: #1f1f23;
+  --color-ink-700: #28282d;
+  --color-ink-600: #36363c;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-bone-50: #f6f1e9;
+  --color-bone-100: #ece6dc;
+  --color-bone-200: #d9d2c6;
+  --color-bone-300: #bcb4a7;
+  --color-bone-400: #9d958a;
+  --color-bone-500: #7d766c;
+  --color-bone-600: #5f5951;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-signal-300: #ff7a7e;
+  --color-signal-400: #ff4b51;
+  --color-signal-500: #e91f26;
+  --color-signal-600: #c3151c;
+  --color-signal-900: #3a0d10;
+
+  --color-amber-300: #f6cd7c;
+  --color-amber-400: #efb34a;
+  --color-amber-900: #33270f;
+
+  --color-line: rgb(246 241 233 / 0.075);
+  --color-line-strong: rgb(246 241 233 / 0.14);
+
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  --animate-shimmer: shimmer 1.6s var(--ease-out-quart) infinite;
+  --animate-flash: flash 1.4s var(--ease-out-quart);
+  --animate-fade-in: fade-in 180ms ease-out;
+  --animate-pop-in: pop-in 200ms var(--ease-out-expo);
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      scale: 0.97;
+    }
+  }
+
+  @keyframes shimmer {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes flash {
+    from {
+      background-color: rgb(233 31 38 / 0.16);
+    }
+    to {
+      background-color: transparent;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    background: var(--color-ink-950);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100dvh;
+    background:
+      radial-gradient(1200px 520px at 12% -8%, rgb(233 31 38 / 0.055), transparent 62%),
+      var(--color-ink-950);
+    color: var(--color-bone-100);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgb(233 31 38 / 0.38);
+    color: var(--color-bone-50);
+  }
+
+  /* Tailwind v4 resets buttons to the default cursor; every clickable control shows the hand. */
+  button,
+  [role="button"],
+  [role="tab"],
+  [role="radio"],
+  [role="option"],
+  summary,
+  label:has(input[type="checkbox"]),
+  input[type="checkbox"],
+  input[type="color"] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal-500);
+    outline-offset: 2px;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.85);
+    opacity: 0.6;
+    cursor: pointer;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-ink-600) transparent;
+  }
+}
+
+@layer components {
+  .display {
+    font-family: var(--font-display);
+    font-weight: 780;
+    font-stretch: 112%;
+    letter-spacing: -0.035em;
+    line-height: 0.94;
+    color: var(--color-bone-50);
+  }
+
+  .display em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-stretch: 100%;
+    letter-spacing: -0.01em;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-bone-500);
+  }
+
+  .hairline-grid {
+    background-image:
+      linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -1,8 +1,15 @@
 import type { NextConfig } from "next";
 
+// Set NEXT_PUBLIC_BASE_PATH when the site is served from a sub-path (e.g. "/repo-name" on GitHub Pages).
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: "export",
+  basePath: basePath || undefined,
+  trailingSlash: true,
+  images: { unoptimized: true },
   turbopack: {
+    root: __dirname,
     rules: {
       "*.css": {
         loaders: ["@tailwindcss/turbopack"],

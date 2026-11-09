@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local checks against real student lists (never commit personal data)
+*.local.test.ts
+
+# playwright
+/test-results/
+/playwright-report/
+
+# copied from pdfjs-dist at dev/build time
+/public/vendor/
+
+# temporary local copies of real lists for manual checks
+/public/__local/
