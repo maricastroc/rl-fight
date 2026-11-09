@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-// Set NEXT_PUBLIC_BASE_PATH when the site is served from a sub-path (e.g. "/repo-name" on GitHub Pages).
+// Set NEXT_PUBLIC_BASE_PATH only when the site is served from a sub-path (e.g. "/certificados"); not on Vercel.
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {

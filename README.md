@@ -2,7 +2,7 @@
 
 Aplicação web que transforma a lista de alunos aptos (Word, Excel ou CSV) nos certificados de graduação prontos para imprimir, preservando o certificado original criado no InDesign/Illustrator.
 
-Tudo roda no navegador: não há servidor, banco de dados, login nem envio de dados para a internet. O site é estático e pode ser hospedado de graça (GitHub Pages, Cloudflare Pages ou qualquer hospedagem de arquivos).
+Tudo roda no navegador: não há servidor, banco de dados, login nem envio de dados para a internet. O site é estático e pode ser hospedado de graça (Vercel, Cloudflare Pages ou qualquer hospedagem de arquivos).
 
 ## Como o professor usa
 
@@ -47,15 +47,15 @@ Antes da primeira execução dos testes de interface: `npx playwright install ch
 
 ## Publicar
 
-### GitHub Pages
+### Vercel
 
-O workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) roda lint, tipos, testes unitários e de interface e publica o site a cada push na `main`.
+Não precisa de configuração: importe o repositório na Vercel e mantenha as opções padrão. Ela detecta o Next.js, roda `npm run build` (que também copia o worker do PDF.js para `public/vendor/`) e publica o site estático. Cada push na `main` atualiza o site e cada branch ou pull request ganha um link de prévia.
 
-1. Envie o repositório para o GitHub.
-2. Em **Settings → Pages**, escolha **Source: GitHub Actions**.
-3. Faça um push na `main`. O endereço será `https://<usuário>.github.io/<repositório>/`.
+Não defina `NEXT_PUBLIC_BASE_PATH` na Vercel: o site fica na raiz do domínio.
 
-O workflow define `NEXT_PUBLIC_BASE_PATH=/<repositório>` automaticamente. Para um domínio próprio (servido na raiz), remova essa variável do workflow.
+### Verificação automática
+
+O workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) roda lint, tipos, testes unitários e de interface a cada push e pull request. Ele não publica nada; a publicação fica com a Vercel.
 
 ### Cloudflare Pages
 

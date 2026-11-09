@@ -24,7 +24,7 @@ function Section({ number, title, children }: { number: string; title: string; c
     <section className="grid gap-5 border-t border-line py-8 first:border-t-0 first:pt-0 2xl:grid-cols-[160px_minmax(0,1fr)] 2xl:gap-10">
       <h2 className="flex items-baseline gap-3 2xl:flex-col 2xl:gap-2">
         <span className="font-mono text-[11px] tracking-[0.14em] text-bone-600">{number}</span>
-        <span className="font-display text-[17px] font-[680] tracking-[-0.015em] text-bone-50 [font-stretch:106%]">{title}</span>
+        <span className="font-display text-[17px] font-[680] tracking-[-0.015em] text-bone-50 font-stretch-106%">{title}</span>
       </h2>
       <div className="flex min-w-0 flex-col gap-5">{children}</div>
     </section>
@@ -79,7 +79,7 @@ export function ConfigureStep() {
         <div>
           <Section number="01" title="Data do exame">
             <Field
-              label="Data em que o exame foi realizado"
+              label="Data em que o exame foi/será realizado"
               error={dateErrors.examDate}
               hint={longDate ? `${weekdayOf(config.examDate)}, ${longDate}` : "Use o calendário ou digite a data."}
             >
@@ -91,7 +91,7 @@ export function ConfigureStep() {
                   value={config.examDate}
                   max="2100-12-31"
                   onChange={(event) => update({ examDate: event.target.value })}
-                  className="max-w-[260px] [color-scheme:dark]"
+                  className="max-w-65 scheme-dark"
                 />
               )}
             </Field>
