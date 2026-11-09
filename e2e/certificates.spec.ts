@@ -44,7 +44,7 @@ test("imports a Word list, edits it and downloads every certificate", async ({ p
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Dados do exame.");
   await page.getByRole("button", { name: "Ver certificados" }).click();
   await expect(page.getByText("Informe a data do exame")).toBeVisible();
-  await page.getByLabel("Data em que o exame foi realizado").fill("2026-11-28");
+  await page.getByLabel(/^Data em que o exame/).fill("2026-11-28");
   await expect(page.getByText("sábado, 28 de novembro de 2026")).toBeVisible();
   await page.getByLabel("Cidade").fill("Sobral");
   await expect(page.getByText("Sobral/Ceará")).toBeVisible();
@@ -84,7 +84,7 @@ test("filters the preview by graduation and generates only that graduation", asy
   await upload(page, "alunos-aptos.docx", await buildDocx(CLASS_DOCX), MIME.docx);
   await page.getByRole("button", { name: "Conferir alunos" }).click();
   await page.getByRole("button", { name: "Continuar" }).click();
-  await page.getByLabel("Data em que o exame foi realizado").fill("2026-11-28");
+  await page.getByLabel(/^Data em que o exame/).fill("2026-11-28");
   await page.getByRole("button", { name: "Ver certificados" }).click();
 
   const list = page.getByRole("list", { name: "Alunos" });
