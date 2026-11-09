@@ -52,3 +52,5 @@ next-env.d.ts
 
 # temporary local copies of real lists for manual checks
 /public/__local/
+
+.claude
